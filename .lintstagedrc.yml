@@ -1,0 +1,7 @@
+"*.{js,jsx,ts,tsx}":
+  - eslint --fix
+  - prettier --write
+"*.{md,html,css}": prettier --ignore-unknown --write
+"*.scss":
+  - stylelint --fix --allow-empty-input
+  - prettier --write

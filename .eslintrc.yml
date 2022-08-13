@@ -1,0 +1,59 @@
+root: true
+plugins:
+  - "@typescript-eslint"
+  - jest
+  - promise
+  - unicorn
+extends:
+  - airbnb
+  - airbnb-typescript
+  - airbnb/hooks
+  - plugin:@typescript-eslint/recommended
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
+  - plugin:jest/recommended
+  - plugin:promise/recommended
+  - plugin:unicorn/recommended
+  - prettier
+rules:
+  react/react-in-jsx-scope: off
+  unicorn/prevent-abbreviations: off
+  unicorn/no-array-for-each: off
+  import/no-extraneous-dependencies: off
+  no-use-before-define:
+    - error
+    - functions: false
+      classes: true
+      variables: true
+  unicorn/filename-case:
+    - error
+    - cases:
+        camelCase: true
+        pascalCase: true
+  "@typescript-eslint/explicit-function-return-type": off
+  "@typescript-eslint/no-use-before-define":
+    - error
+    - functions: false
+      classes: true
+      variables: true
+      typedefs: true
+parser: "@typescript-eslint/parser"
+parserOptions:
+  tsconfigRootDir: ./
+  project:
+    - ./tsconfig.json
+overrides:
+  - files:
+      - "*.js"
+    rules:
+      "@typescript-eslint/no-var-requires": off
+      unicorn/prefer-module: off
+  - files:
+      - "vite-env.d.ts"
+    rules:
+      unicorn/filename-case: off
+
+env:
+  browser: true
+  es2021: true
+  node: true
+  jest: true

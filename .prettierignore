@@ -1,0 +1,7 @@
+/coverage
+/dist
+/node_modules
+package.json
+.DS_Store
+.vscode
+.yarn
