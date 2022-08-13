@@ -2,11 +2,20 @@
 	"compilerOptions": {
 		"baseUrl": "./",
 		"paths": {
-			"@/*": ["src/*"]
+			"~/*": [
+				"src/*"
+			]
 		},
+		"types": [
+			"vitest/globals",
+		],
 		"target": "ESNext",
 		"useDefineForClassFields": true,
-		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"lib": [
+			"DOM",
+			"DOM.Iterable",
+			"ESNext"
+		],
 		"allowJs": true,
 		"skipLibCheck": true,
 		"esModuleInterop": true,
@@ -20,7 +29,12 @@
 		"noEmit": true,
 		"jsx": "react-jsx"
 	},
-	"include": ["src", "jest.config.ts", "vite.config.ts"],
+	"include": [
+		"src",
+		"src/tests/setup.ts",
+		"jest.config.ts",
+		"vite.config.ts"
+	],
 	"references": [
 		{
 			"path": "./tsconfig.node.json"

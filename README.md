@@ -2,13 +2,12 @@
 
 A starter for React with Typescript with the fast Vite and all static code testing with Eslint and formatting with Prettier.
 
-
 ## Features
 
-- ⚛️⚡️ [React 18](https://beta.reactjs.org/)
+- ⚛️⚡️ [React 18](https://reactjs.org/)
 - 🦾 TypeScript, of course
-- 🫀 [Jest](https://jestjs.io/) - unitary testing made easy
-- 🎨 [Tailwind with JIT](https://tailwindcss.com/) - next generation utility-first CSS
+- 🫀 [Vitest](https://vitest.dev/) - unitary testing made easy
+- 🎨 [Bootstrap](https://getbootstrap.com/) - Build fast, responsive sites
 - 👑 [CSS Modules](https://github.com/css-modules/css-modules)
 - 🗂 [Absolute imports](https://github.com/vitejs/vite/issues/88#issuecomment-762415200)
 - 😃 [FontAwesome icons](https://fontawesome.com/search?m=free)

@@ -1,7 +1,6 @@
 root: true
 plugins:
   - '@typescript-eslint'
-  - jest
   - promise
   - unicorn
 extends:
@@ -10,11 +9,11 @@ extends:
   - airbnb/hooks
   - plugin:@typescript-eslint/recommended
   - plugin:@typescript-eslint/recommended-requiring-type-checking
-  - plugin:jest/recommended
   - plugin:promise/recommended
   - plugin:unicorn/recommended
   - prettier
 rules:
+  import/prefer-default-export: off
   react/react-in-jsx-scope: off
   unicorn/prevent-abbreviations: off
   unicorn/no-array-for-each: off
@@ -48,6 +47,11 @@ overrides:
     rules:
       '@typescript-eslint/no-var-requires': off
       unicorn/prefer-module: off
+  - files:
+      - '**/__tests__/**/*.[jt]s?(x)'
+      - '**/?(*.)+(spec|test).[jt]s?(x)'
+    extends:
+      - plugin:testing-library/react
 
 env:
   browser: true
