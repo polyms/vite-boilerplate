@@ -1,0 +1,15 @@
+{
+    "short_name": "Polyms Vite",
+    "name": "Starter template for Vite with React (TypeScript). Supports Bootstrap with CSS-Modules. Jest and @react/testing-library configured and ready to go. Also ESLint, Prettier, Husky, lint-staged.",
+    "icons": [
+        {
+            "src": "/favicon/favicon.png",
+            "sizes": "64x64 32x32 24x24 16x16",
+            "type": "image/x-icon"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#297E84",
+    "background_color": "#297E84"
+}

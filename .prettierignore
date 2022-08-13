@@ -5,3 +5,5 @@ package.json
 .DS_Store
 .vscode
 .yarn
+_variables.scss
+bootstrap.scss

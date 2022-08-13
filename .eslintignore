@@ -4,3 +4,4 @@
 /.yarn
 /.vscode
 .DS_Store
+*.transformer.js

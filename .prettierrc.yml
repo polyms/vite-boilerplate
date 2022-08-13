@@ -1,5 +1,6 @@
 printWidth: 90
 singleQuote: true
+jsxSingleQuote: false
 useTabs: false
 overrides:
   - files:

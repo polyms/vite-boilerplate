@@ -1,6 +1,6 @@
 root: true
 plugins:
-  - "@typescript-eslint"
+  - '@typescript-eslint'
   - jest
   - promise
   - unicorn
@@ -19,38 +19,35 @@ rules:
   unicorn/prevent-abbreviations: off
   unicorn/no-array-for-each: off
   import/no-extraneous-dependencies: off
-  no-use-before-define:
-    - error
-    - functions: false
-      classes: true
-      variables: true
+  no-use-before-define: off
+  unicorn/prefer-module: off
   unicorn/filename-case:
     - error
     - cases:
         camelCase: true
         pascalCase: true
-  "@typescript-eslint/explicit-function-return-type": off
-  "@typescript-eslint/no-use-before-define":
+      ignore:
+        - vite-env.d.ts
+  '@typescript-eslint/explicit-function-return-type': off
+  '@typescript-eslint/no-use-before-define':
     - error
     - functions: false
       classes: true
       variables: true
       typedefs: true
-parser: "@typescript-eslint/parser"
+
+parser: '@typescript-eslint/parser'
 parserOptions:
   tsconfigRootDir: ./
   project:
     - ./tsconfig.json
+
 overrides:
   - files:
-      - "*.js"
+      - '*.js'
     rules:
-      "@typescript-eslint/no-var-requires": off
+      '@typescript-eslint/no-var-requires': off
       unicorn/prefer-module: off
-  - files:
-      - "vite-env.d.ts"
-    rules:
-      unicorn/filename-case: off
 
 env:
   browser: true
