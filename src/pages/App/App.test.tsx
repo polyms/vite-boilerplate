@@ -9,12 +9,18 @@ describe.concurrent('<AppPage />', () => {
     expect(screen.getByRole('heading')).toBeTruthy();
   });
 
-  it('should increment count on click', () => {
+  it('should change count on click', () => {
     render(<AppPage />);
 
-    const btnCount = screen.getByTestId('btnCount');
-    expect(btnCount).toBeInstanceOf(HTMLButtonElement);
-    fireEvent.click(btnCount);
-    expect(btnCount.textContent).toBe('count is 1');
+    const btnIncrement = screen.getByTestId('increment');
+    expect(btnIncrement).toBeInstanceOf(HTMLButtonElement);
+
+    const btnReduce = screen.getByTestId('reduce');
+    expect(btnReduce).toBeInstanceOf(HTMLButtonElement);
+
+    fireEvent.click(btnIncrement);
+    expect(screen.getByTestId('title').textContent).toBe('count is 1');
+    fireEvent.click(btnReduce);
+    expect(screen.getByTestId('title').textContent).toBe('count is 0');
   });
 });

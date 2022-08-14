@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
-import { useCounter } from './useCounter';
+import { useCounter } from '../useCounter';
 
-describe('useCounter', () => {
+describe('useCounter.state', () => {
   it('should increment counter', () => {
     const { result } = renderHook(() => useCounter());
     act(() => {

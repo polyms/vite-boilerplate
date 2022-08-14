@@ -30,7 +30,8 @@
     "react-hook-form": "^7.34.1",
     "react-query": "^3.39.2",
     "react-router": "^6.3.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "zustand": "^4.0.0"
   },
   "devDependencies": {
     "@testing-library/react": "^13.3.0",
