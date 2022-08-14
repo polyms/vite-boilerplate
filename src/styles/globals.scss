@@ -1,8 +1,8 @@
-@import './bs/bootstrap.scss';
+@import './bs/bootstrap';
 @import 'animation';
 @import 'scrollbar';
 
 #root {
-  min-height: 100vh;
   min-width: 100%;
+  min-height: 100vh;
 }

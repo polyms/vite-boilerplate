@@ -3,8 +3,8 @@
 }
 
 ::-webkit-scrollbar {
-  height: 12px;
   width: 12px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
@@ -12,8 +12,8 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-clip: content-box;
   background-color: #d6dee1;
+  background-clip: content-box;
   border: 2px solid transparent;
   border-radius: 12px;
 }

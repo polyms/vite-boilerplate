@@ -6,9 +6,6 @@
 				"src/*"
 			]
 		},
-		"types": [
-			"vitest/globals",
-		],
 		"target": "ESNext",
 		"useDefineForClassFields": true,
 		"lib": [

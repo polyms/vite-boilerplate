@@ -10,7 +10,7 @@
     "postinstall": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
@@ -35,7 +35,6 @@
   "devDependencies": {
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.4.3",
-    "@types/jest": "^28.1.6",
     "@types/node": "^18.7.2",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
@@ -61,6 +60,10 @@
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "sass": "^1.54.4",
+    "stylelint": "^14.10.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-recess-order": "^3.0.0",
+    "stylelint-config-standard-scss": "^5.0.0",
     "typescript": "4.7.4",
     "vite": "^3.0.7",
     "vite-plugin-style-import": "^2.0.0",

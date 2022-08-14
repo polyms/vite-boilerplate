@@ -21,6 +21,14 @@ const exclude = [
 ];
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    sourcemap: true,
+  },
+  // css: {
+  //   modules: {
+  //     generateScopedName: '[local]-[hash:base64:5]',
+  //   },
+  // },
   test: {
     globals: true,
     environment: 'jsdom',
@@ -37,6 +45,8 @@ export default defineConfig({
       statements: 70,
       include: ['src'],
       exclude,
+      reporter: ['json', 'json-summary', 'clover', 'html-spa'],
+      reportsDirectory: './public/coverage',
     },
     silent: true,
   },
