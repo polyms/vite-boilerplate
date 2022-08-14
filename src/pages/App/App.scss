@@ -1,0 +1,12 @@
+.logo {
+  height: 6em;
+  will-change: filter;
+
+  &:hover {
+    filter: drop-shadow(0 0 2em #646cffaa);
+  }
+
+  &.react:hover {
+    filter: drop-shadow(0 0 2em #61dafbaa);
+  }
+}

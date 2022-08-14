@@ -1,16 +1,16 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import App from './App';
+import { AppPage } from './App.page';
 
-describe.concurrent('<App />', () => {
+describe.concurrent('<AppPage />', () => {
   it('renders without errors', () => {
-    render(<App />);
+    render(<AppPage />);
 
     expect(screen.getByRole('heading')).toBeTruthy();
   });
 
   it('should increment count on click', () => {
-    render(<App />);
+    render(<AppPage />);
 
     const btnCount = screen.getByTestId('btnCount');
     expect(btnCount).toBeInstanceOf(HTMLButtonElement);

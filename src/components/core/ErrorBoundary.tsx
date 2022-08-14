@@ -17,10 +17,7 @@ function ErrorRender({ error }: { error: Error }) {
   );
 }
 
-export default class ErrorBoundary extends Component<
-  PropsWithChildren,
-  ErrorBoundaryState
-> {
+export class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundaryState> {
   constructor(props: PropsWithChildren) {
     super(props);
     this.state = { error: undefined };

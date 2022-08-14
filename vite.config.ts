@@ -24,11 +24,12 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
-  // css: {
-  //   modules: {
-  //     generateScopedName: '[local]-[hash:base64:5]',
-  //   },
-  // },
+  css: {
+    devSourcemap: true,
+    //   modules: {
+    //     generateScopedName: '[local]-[hash:base64:5]',
+    //   },
+  },
   test: {
     globals: true,
     environment: 'jsdom',
