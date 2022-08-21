@@ -22,10 +22,14 @@ const queryClient = new QueryClient({
 });
 
 const AppPage = lazy(() => import('~/pages/App'));
+const CoveragePage = lazy(() => import('~/pages/code-coverage'));
 
 function RootApp() {
   const routes = useMemo<RouteObject[]>(
-    () => [{ index: true, element: <AppPage /> }],
+    () => [
+      { index: true, element: <AppPage /> },
+      { path: 'coverage', element: <CoveragePage /> },
+    ],
     []
   );
 

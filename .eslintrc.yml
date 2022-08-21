@@ -22,6 +22,7 @@ rules:
   import/no-extraneous-dependencies: off
   no-use-before-define: off
   unicorn/prefer-module: off
+  unicorn/no-null: off
   unicorn/filename-case:
     - error
     - cases:
