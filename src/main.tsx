@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import '~/styles/globals.scss';
 import { lazy, StrictMode, Suspense, useMemo } from 'react';
-import { createRoot, Root } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, RouteObject, useRoutes } from 'react-router-dom';
 
@@ -42,9 +42,10 @@ function RootApp() {
 }
 
 if (!globalThis.__root__)
-  globalThis.__root__ = createRoot(document.querySelector('#root'));
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  globalThis.__root__ = createRoot(document.querySelector('#root')!);
 
-(globalThis.__root__ as Root).render(
+globalThis.__root__.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary>
