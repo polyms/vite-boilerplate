@@ -21,7 +21,8 @@ const exclude = [
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    sourcemap: true,
+    reportCompressedSize: false,
+    // minify: true,
   },
   css: {
     devSourcemap: true,
