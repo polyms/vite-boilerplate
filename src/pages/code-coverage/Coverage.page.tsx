@@ -1,25 +1,25 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import {
   Badge,
-  Button,
+  // Button,
   ButtonGroup,
   Container,
-  Table,
+  // Table,
   ToggleButton,
 } from 'react-bootstrap';
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  getExpandedRowModel,
-  getFilteredRowModel,
-  getGroupedRowModel,
-  getPaginationRowModel,
-  GroupingState,
-  useReactTable,
-} from '@tanstack/react-table';
-import { useQuery } from 'react-query';
-import { CoverageSummary, CoverageSummaryResult } from './coverage';
+// import {
+//   ColumnDef,
+//   flexRender,
+//   getCoreRowModel,
+//   getExpandedRowModel,
+//   getFilteredRowModel,
+//   getGroupedRowModel,
+//   getPaginationRowModel,
+//   GroupingState,
+//   useReactTable,
+// } from '@tanstack/react-table';
+// import { useQuery } from 'react-query';
+// import { CoverageSummary, CoverageSummaryResult } from './coverage';
 
 function Counter() {
   return (
@@ -33,41 +33,41 @@ function Counter() {
 const files = ['Tree', 'Flat'];
 const filters = ['Low', 'Medium', 'High'];
 
-const columns: ColumnDef<CoverageResult>[] = [
-  {
-    accessorKey: 'file',
-    id: 'firstName',
-    header: 'First Name',
-    // cell: (info) => info.getValue(),
-    // footer: (props) => props.column.id,
-  },
-];
+// const columns: ColumnDef<CoverageResult>[] = [
+//   {
+//     accessorKey: 'file',
+//     id: 'firstName',
+//     header: 'First Name',
+//     // cell: (info) => info.getValue(),
+//     // footer: (props) => props.column.id,
+//   },
+// ];
 
 export function CoveragePage() {
   const [radioValue, setRadioValue] = useState<GroupType>('Tree');
 
-  const [grouping, setGrouping] = useState<GroupingState>([]);
-  const { isLoading, error, data } = useQuery<CoverageResult>(['coverage-summary'], () =>
-    fetch('/coverage/coverage-summary.json')
-      .then<CoverageSummary>((res) => res.json())
-      .then((res) =>
-        Object.entries(res).map(([filePath, item]) => ({ ...item, filePath }))
-      )
-  );
+  // const [grouping, setGrouping] = useState<GroupingState>([]);
+  // const { isLoading, error, data } = useQuery<CoverageResult>(['coverage-summary'], () =>
+  //   fetch('/coverage/coverage-summary.json')
+  //     .then<CoverageSummary>((res) => res.json())
+  //     .then((res) =>
+  //       Object.entries(res).map(([filePath, item]) => ({ ...item, filePath }))
+  //     )
+  // );
 
-  const table = useReactTable({
-    data,
-    columns,
-    state: {
-      grouping,
-    },
-    onGroupingChange: setGrouping,
-    getExpandedRowModel: getExpandedRowModel(),
-    getGroupedRowModel: getGroupedRowModel(),
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    debugTable: true,
-  });
+  // const table = useReactTable({
+  //   data,
+  //   columns,
+  //   state: {
+  //     grouping,
+  //   },
+  //   onGroupingChange: setGrouping,
+  //   getExpandedRowModel: getExpandedRowModel(),
+  //   getGroupedRowModel: getGroupedRowModel(),
+  //   getCoreRowModel: getCoreRowModel(),
+  //   getFilteredRowModel: getFilteredRowModel(),
+  //   debugTable: true,
+  // });
 
   return (
     <Container fluid className="py-5">
@@ -103,13 +103,13 @@ export function CoveragePage() {
             name="radio"
             value={radio}
             checked={radioValue === radio}
-            onChange={(e) => setRadioValue(e.currentTarget.value)}
+            onChange={(e) => setRadioValue(e.currentTarget.value as GroupType)}
           >
             {radio}
           </ToggleButton>
         ))}
       </ButtonGroup>
-      <Table>
+      {/* <Table>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -178,7 +178,7 @@ export function CoveragePage() {
             </tr>
           ))}
         </tbody>
-      </Table>
+      </Table> */}
     </Container>
   );
 }
