@@ -1,1 +1,1 @@
-const test = {};
+/* eslint-disable unicorn/no-empty-file */

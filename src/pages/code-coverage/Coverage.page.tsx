@@ -44,7 +44,7 @@ const columns: ColumnDef<CoverageResult>[] = [
 ];
 
 export function CoveragePage() {
-  const [radioValue, setRadioValue] = useState<'Tree' | 'Flat'>('Tree');
+  const [radioValue, setRadioValue] = useState<GroupType>('Tree');
 
   const [grouping, setGrouping] = useState<GroupingState>([]);
   const { isLoading, error, data } = useQuery<CoverageResult>(['coverage-summary'], () =>
@@ -86,7 +86,7 @@ export function CoveragePage() {
             name="radio"
             value={radio}
             checked={radioValue === radio}
-            onChange={(e) => setRadioValue(e.currentTarget.value)}
+            onChange={(e) => setRadioValue(e.currentTarget.value as GroupType)}
           >
             {radio}
           </ToggleButton>
@@ -193,3 +193,5 @@ type CoverageResult = {
   branches: CoverageResult;
   branchesTrue?: CoverageResult | undefined;
 };
+
+type GroupType = 'Tree' | 'Flat';
