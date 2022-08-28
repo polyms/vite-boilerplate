@@ -4,7 +4,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import { createStyleImportPlugin } from 'vite-plugin-style-import';
+import electron from 'vite-plugin-electron';
 import path from 'node:path';
+import fs from 'node:fs';
+
+fs.rmSync('dist', { recursive: true, force: true }); // v14.14.0
 
 const testFileExtensions = ['js', 'cjs', 'mjs', 'ts', 'tsx', 'jsx'].join(',');
 const exclude = [
@@ -63,15 +67,31 @@ export default defineConfig({
       libs: [
         {
           libraryName: 'react-bootstrap',
-          esModule: true,
+          esModule: false,
           resolveStyle: (name) => `react-bootstrap/${name}`,
+          libraryNameChangeCase: 'pascalCase',
         },
         {
           libraryName: 'lodash',
-          esModule: true,
+          esModule: false,
           resolveStyle: (name) => `lodash/${name}`,
+          libraryNameChangeCase: 'camelCase',
         },
       ],
+    }),
+    electron({
+      main: {
+        entry: 'src/electron/main.ts',
+      },
+      preload: {
+        input: {
+          // Must be use absolute path, this is the restrict of Rollup
+          preload: path.join(__dirname, 'src/electron/preload.ts'),
+        },
+      },
+      // Enables use of Node.js API in the Renderer-process
+      // https://github.com/electron-vite/vite-plugin-electron/tree/main/packages/electron-renderer#electron-renderervite-serve
+      renderer: {},
     }),
   ],
 });

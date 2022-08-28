@@ -10,11 +10,11 @@ export function AppPage() {
     <Container className="d-flex flex-column text-center my-auto pb-5">
       <div>
         <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/imgs/vite.svg" className="logo p-4" alt="Vite logo" />
+          <img src="./imgs/vite.svg" className="logo p-4" alt="Vite logo" />
         </a>
         <a href="https://reactjs.org" target="_blank" rel="noreferrer">
           <img
-            src="/imgs/react.svg"
+            src="./imgs/react.svg"
             className="logo p-4 react spin-slow"
             alt="React logo"
           />

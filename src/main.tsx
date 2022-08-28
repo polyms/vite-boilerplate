@@ -1,10 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 import '~/styles/globals.scss';
-import { lazy, StrictMode, Suspense, useMemo } from 'react';
+import { StrictMode, Suspense, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter, RouteObject, useRoutes } from 'react-router-dom';
-
+import { HashRouter, RouteObject, useRoutes } from 'react-router-dom';
+import { AppPage } from './pages/App/App.page';
+import { CoveragePage } from './pages/code-coverage/Coverage.page';
 import { ErrorBoundary } from './components/core';
 import { PageLoader } from './components/layouts';
 
@@ -21,8 +22,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const AppPage = lazy(() => import('~/pages/App'));
-const CoveragePage = lazy(() => import('~/pages/code-coverage'));
+// const CoveragePage = lazy(() => import('~/pages/code-coverage'));
 
 function RootApp() {
   const routes = useMemo<RouteObject[]>(
@@ -49,9 +49,9 @@ globalThis.__root__.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary>
-        <BrowserRouter>
+        <HashRouter>
           <RootApp />
-        </BrowserRouter>
+        </HashRouter>
       </ErrorBoundary>
     </QueryClientProvider>
   </StrictMode>
