@@ -1,7 +1,10 @@
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
 /// <reference types="vite/client" />
 /// <reference types="vitest/globals" />
 /// <reference types="vite-plugin-svgr/client" />
 import { Root } from 'react-dom/client';
+import { ElectronAPI } from './electron/preload';
 
 // interface ImportMetaEnv {
 //   readonly VITE_APP_TITLE: string;
@@ -13,6 +16,7 @@ import { Root } from 'react-dom/client';
 // }
 
 declare global {
-  // eslint-disable-next-line vars-on-top, no-var, @typescript-eslint/naming-convention, no-underscore-dangle
+  // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle
   var __root__: Root | undefined;
+  var electron: ElectronAPI;
 }

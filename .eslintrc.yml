@@ -15,12 +15,14 @@ extends:
 rules:
   import/prefer-default-export: off
   import/extensions: off
+  import/no-extraneous-dependencies: off
   no-restricted-exports: off
+  no-use-before-define: off
   react/react-in-jsx-scope: off
+  react-hooks/exhaustive-deps: off
+  promise/catch-or-return: off
   unicorn/prevent-abbreviations: off
   unicorn/no-array-for-each: off
-  import/no-extraneous-dependencies: off
-  no-use-before-define: off
   unicorn/prefer-module: off
   unicorn/no-null: off
   unicorn/filename-case:

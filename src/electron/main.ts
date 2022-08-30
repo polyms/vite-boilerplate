@@ -2,10 +2,13 @@
 // Modules to control application life and create native browser window
 import { app, BrowserWindow, Menu, MenuItem, MenuItemConstructorOptions } from 'electron';
 import { join } from 'node:path';
+import ipcSetups from './ipcSetups';
 
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
+    // titleBarStyle: 'hidden',
+    // frame: false,
     width: 1024,
     height: 768,
     minWidth: 1024,
@@ -18,6 +21,8 @@ function createWindow() {
     },
     // transparent: false,
   });
+
+  ipcSetups(mainWindow);
 
   // and load the index.html of the app.
   if (!app.isPackaged) {

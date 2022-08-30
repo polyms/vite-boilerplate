@@ -4,10 +4,11 @@ import { StrictMode, Suspense, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { HashRouter, RouteObject, useRoutes } from 'react-router-dom';
-import { AppPage } from './pages/App/App.page';
+import { AppPage } from './pages/apps/App.page';
 import { CoveragePage } from './pages/code-coverage/Coverage.page';
 import { ErrorBoundary } from './components/core';
 import { PageLoader } from './components/layouts';
+import { TitleBar } from './pages/layouts';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,7 +39,12 @@ function RootApp() {
   // preference for those who prefer to not use JSX for their routes config.
   const element = useRoutes(routes);
 
-  return <Suspense fallback={<PageLoader />}>{element}</Suspense>;
+  return (
+    <Suspense fallback={<PageLoader />}>
+      <TitleBar />
+      {element}
+    </Suspense>
+  );
 }
 
 if (!globalThis.__root__)
