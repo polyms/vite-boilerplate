@@ -8,7 +8,7 @@ export default function ipcSetups(mainWindow: BrowserWindow) {
   ipcMain.on('window:title', (e, title: string) => {
     const webContents = e.sender;
     const win = BrowserWindow.fromWebContents(webContents);
-    win.setTitle(title);
+    win?.setTitle(title);
   });
 
   ipcMain.handle(
@@ -22,37 +22,35 @@ export default function ipcSetups(mainWindow: BrowserWindow) {
       ) as Menu
   );
 
-  ipcMain.on(
-    'window:event',
-    (e, eventName: string, ...args: string | number | boolean) => {
-      const window = BrowserWindow.fromWebContents(e.sender);
-      console.log(eventName, args);
-      switch (eventName) {
-        case 'minimize':
-          mainWindow.minimize();
-          break;
-        case 'maximize':
-          if (window.isMaximized()) window.unmaximize();
-          else window.maximize();
-          break;
-        case 'close':
-          mainWindow.close();
-          break;
-        case 'isMaximized':
-          e.returnValue = mainWindow.isMaximized();
-          break;
-        case 'zoom': {
-          const level = args[0] as number | undefined;
-          mainWindow.webContents.setZoomLevel(
-            level ? mainWindow.webContents.zoomLevel + level : 1
-          );
-          break;
-        }
-        default:
-          break;
+  ipcMain.on('window:event', (e, ...args) => {
+    const window = BrowserWindow.fromWebContents(e.sender);
+    if (!window) return;
+
+    switch (args[0] as string) {
+      case 'minimize':
+        mainWindow.minimize();
+        break;
+      case 'maximize':
+        if (window.isMaximized()) window.unmaximize();
+        else window.maximize();
+        break;
+      case 'close':
+        mainWindow.close();
+        break;
+      case 'isMaximized':
+        e.returnValue = mainWindow.isMaximized();
+        break;
+      case 'zoom': {
+        const level = args[1] as number | undefined;
+        mainWindow.webContents.setZoomLevel(
+          level ? mainWindow.webContents.zoomLevel + level : 1
+        );
+        break;
       }
+      default:
+        break;
     }
-  );
+  });
 
   mainWindow.on('maximize', () => {
     mainWindow.webContents.send('window:maximize', true);

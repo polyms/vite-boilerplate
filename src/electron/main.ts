@@ -7,8 +7,10 @@ import ipcSetups from './ipcSetups';
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
+    // icon: join(__dirname, '../favicon/favicon.png'),
+    title: 'Polyms',
     // titleBarStyle: 'hidden',
-    // frame: false,
+    frame: false,
     width: 1024,
     height: 768,
     minWidth: 1024,
@@ -67,26 +69,49 @@ if (process.platform === 'darwin') {
 app
   .whenReady()
   .then(() => {
+    if (process.platform === 'darwin') {
+      // Create the Menu
+      const name = app.getName();
+      const dockMenu = Menu.buildFromTemplate([
+        {
+          label: name,
+          submenu: [
+            {
+              label: `About ${name}`,
+              role: 'about',
+            },
+            {
+              label: 'Quit',
+              accelerator: 'Command+Q',
+              click() {
+                app.quit();
+              },
+            },
+          ],
+        },
+      ]);
+      // Menu.setApplicationMenu(dockMenu);
+      app.dock.setMenu(dockMenu);
+    }
+    return {};
+  })
+  // eslint-disable-next-line unicorn/prefer-top-level-await
+  .then(() => {
     createWindow();
 
     return app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
       if (BrowserWindow.getAllWindows().length === 0) createWindow();
-
-      // Create the Menu
-      const menu = Menu.buildFromTemplate(template);
-      Menu.setApplicationMenu(menu);
     });
-  })
-  // eslint-disable-next-line unicorn/prefer-top-level-await
-  .catch(console.log);
+  });
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+  // if (process.platform !== 'darwin')
+  app.quit();
 });
 
 // In this file you can include the rest of your app's specific main process

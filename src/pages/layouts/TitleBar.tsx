@@ -12,7 +12,7 @@ import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontaw
 import { useCallback, useEffect, useState } from 'react';
 import { Container, Nav, Navbar, NavLinkProps } from 'react-bootstrap';
 
-function useToggle(callback: () => boolean, initial = false) {
+function useToggle(callback?: null | (() => boolean), initial = false) {
   const [val, setVal] = useState(initial);
   const handleToggle = useCallback(
     () => setVal((oldVal) => (callback ? callback() : !oldVal)),
@@ -38,22 +38,23 @@ export function TitleBar() {
   const title = 'Polyms';
   const { DEV } = import.meta.env;
   const [isMaximized, , setMaximize] = useToggle(null, window.electron.isMaximized());
-  const [menu, setMenu] = useState();
+  // const [menu, setMenu] = useState();
 
   useEffect(() => {
     electron.onWindowMaximize(setMaximize);
-    electron.getMenu().then(console.log);
+    // electron.getMenu().then(console.log);
     return () => {
       electron.offWindowMaximize(setMaximize);
     };
   }, []);
 
   return (
-    <Navbar bg="white" className="py-0" sticky="top">
-      <Container fluid>
+    <Navbar bg="white" className="pb-0 app-drag" sticky="top">
+      <Container fluid className="px-2">
+        <img src="./favicon/favicon.png" alt="logo" height={40} />
         <Navbar.Brand className="mx-auto py-0">{title}</Navbar.Brand>
         {DEV && (
-          <Nav className="align-items-center border rounded-2">
+          <Nav className="align-items-center border rounded-2 app-no-drag">
             <ActionButton
               variant="secondary"
               icon={faPlusCircle}
@@ -66,7 +67,7 @@ export function TitleBar() {
             <ActionButton icon={faMinusCircle} onClick={window.electron.zoomOut} />
           </Nav>
         )}
-        <Nav className="align-items-center gap-2 ms-4">
+        <Nav className="align-items-center gap-2 ms-4 app-no-drag">
           <ActionButton icon={faTerminal} onClick={window.electron.toggleDevTools} />
           <ActionButton
             variant="dark"
@@ -92,7 +93,7 @@ export function TitleBar() {
 
 type ActionButtonProps = Pick<NavLinkProps, 'onClick'> &
   Pick<FontAwesomeIconProps, 'icon'> & {
-    variant:
+    variant?:
       | 'primary'
       | 'secondary'
       | 'success'
