@@ -49,9 +49,9 @@ export function TitleBar() {
   }, []);
 
   return (
-    <Navbar bg="white" className="pb-0 app-drag" sticky="top">
-      <Container fluid className="px-2">
-        <img src="./favicon/favicon.png" alt="logo" height={40} />
+    <Navbar bg="white" className="pb-0 pt-1 app-drag" sticky="top">
+      <Container fluid className="ps-1 pe-2">
+        <img src="./favicon/favicon.png" alt="logo" height={35} />
         <Navbar.Brand className="mx-auto py-0">{title}</Navbar.Brand>
         {DEV && (
           <Nav className="align-items-center border rounded-2 app-no-drag">
@@ -68,7 +68,9 @@ export function TitleBar() {
           </Nav>
         )}
         <Nav className="align-items-center gap-2 ms-4 app-no-drag">
-          <ActionButton icon={faTerminal} onClick={window.electron.toggleDevTools} />
+          {DEV && (
+            <ActionButton icon={faTerminal} onClick={window.electron.toggleDevTools} />
+          )}
           <ActionButton
             variant="dark"
             icon={faWindowMinimize}
@@ -81,7 +83,6 @@ export function TitleBar() {
             }
             onClick={window.electron.maximize}
           />
-
           <ActionButton variant="dark" icon={faXmark} onClick={window.electron.close} />
         </Nav>
       </Container>

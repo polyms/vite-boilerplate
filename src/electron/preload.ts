@@ -1,6 +1,6 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
-import { contextBridge, ipcRenderer } from 'electron';
+import { contextBridge, ipcRenderer, Menu } from 'electron';
 
 const electronAPI = {
   setTitle: (title: string) => ipcRenderer.send('window:title', title),

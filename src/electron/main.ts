@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 // Modules to control application life and create native browser window
-import { app, BrowserWindow, Menu, MenuItem, MenuItemConstructorOptions } from 'electron';
+import { app, BrowserWindow } from 'electron';
 import { join } from 'node:path';
+import { setupBuilder } from './builder';
 import ipcSetups from './ipcSetups';
 
 function createWindow() {
@@ -25,6 +26,7 @@ function createWindow() {
   });
 
   ipcSetups(mainWindow);
+  setupBuilder(mainWindow);
 
   // and load the index.html of the app.
   if (!app.isPackaged) {
@@ -36,65 +38,11 @@ function createWindow() {
   // mainWindow.webContents.openDevTools()
 }
 
-//-------------------------------------------------------------------
-// Define the menu
-//
-// THIS SECTION IS NOT REQUIRED
-//-------------------------------------------------------------------
-const template: (MenuItemConstructorOptions | MenuItem)[] = [];
-if (process.platform === 'darwin') {
-  // OS X
-  const name = app.getName();
-  template.unshift({
-    label: name,
-    submenu: [
-      {
-        label: `About ${name}`,
-        role: 'about',
-      },
-      {
-        label: 'Quit',
-        accelerator: 'Command+Q',
-        click() {
-          app.quit();
-        },
-      },
-    ],
-  });
-}
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app
   .whenReady()
-  .then(() => {
-    if (process.platform === 'darwin') {
-      // Create the Menu
-      const name = app.getName();
-      const dockMenu = Menu.buildFromTemplate([
-        {
-          label: name,
-          submenu: [
-            {
-              label: `About ${name}`,
-              role: 'about',
-            },
-            {
-              label: 'Quit',
-              accelerator: 'Command+Q',
-              click() {
-                app.quit();
-              },
-            },
-          ],
-        },
-      ]);
-      // Menu.setApplicationMenu(dockMenu);
-      app.dock.setMenu(dockMenu);
-    }
-    return {};
-  })
   // eslint-disable-next-line unicorn/prefer-top-level-await
   .then(() => {
     createWindow();

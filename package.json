@@ -12,7 +12,7 @@
     "lint:fix": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix",
     "lint:format": "prettier --loglevel warn --write './**/*.{js,jsx,ts,tsx,scss,md}' ",
     "lint": "yarn lint:format && yarn lint:fix",
-    "postinstall": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
+    "postinstall": "electron-builder install-app-deps && node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "dev": "vite --host",
