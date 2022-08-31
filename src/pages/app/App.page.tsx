@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Card, Container } from 'react-bootstrap';
 import shallow from 'zustand/shallow';
 import { useCounter } from '~/stores/counter.store';
 
-export function AppPage() {
+export default function AppPage() {
   const { count, dec, inc } = useCounter((s) => s, shallow);
 
   return (
@@ -40,7 +40,7 @@ export function AppPage() {
           </ButtonGroup>
         </Card.Body>
         <Card.Footer>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          Edit <code>src/app/App.page.tsx</code> and save to test HMR
         </Card.Footer>
       </Card>
       <p className="text-muted">Click on the Vite and React logos to learn more</p>

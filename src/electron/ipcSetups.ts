@@ -1,4 +1,5 @@
 import { BrowserWindow, ipcMain, Menu } from 'electron';
+import { AppState } from '~/stores/app.store';
 
 export default function ipcSetups(mainWindow: BrowserWindow) {
   ipcMain.on('devTools', () => {
@@ -26,6 +27,15 @@ export default function ipcSetups(mainWindow: BrowserWindow) {
     const window = BrowserWindow.fromWebContents(e.sender);
     if (!window) return;
 
+    if (args.length === 0) {
+      e.returnValue = {
+        isMinimize: mainWindow.isMinimized(),
+        isMaximized: mainWindow.isMaximized(),
+        isFullscreen: mainWindow.isFullScreen(),
+      } as Partial<AppState>;
+      return;
+    }
+
     switch (args[0] as string) {
       case 'minimize':
         mainWindow.minimize();
@@ -33,6 +43,12 @@ export default function ipcSetups(mainWindow: BrowserWindow) {
       case 'maximize':
         if (window.isMaximized()) window.unmaximize();
         else window.maximize();
+        break;
+      case 'fullscreen':
+        window.setFullScreen(!window.isFullScreen());
+        break;
+      case 'isFullscreen':
+        e.returnValue = mainWindow.isFullScreen();
         break;
       case 'close':
         mainWindow.close();
@@ -53,9 +69,38 @@ export default function ipcSetups(mainWindow: BrowserWindow) {
   });
 
   mainWindow.on('maximize', () => {
-    mainWindow.webContents.send('window:maximize', true);
+    mainWindow.webContents.send('window:event', {
+      isMaximized: true,
+    } as Partial<AppState>);
   });
   mainWindow.on('unmaximize', () => {
-    mainWindow.webContents.send('window:maximize', false);
+    mainWindow.webContents.send('window:event', {
+      isMaximized: false,
+    } as Partial<AppState>);
+  });
+  mainWindow.on('minimize', () => {
+    mainWindow.webContents.send('window:event', {
+      isMinimize: true,
+    } as Partial<AppState>);
+  });
+  mainWindow.on('enter-full-screen', () => {
+    mainWindow.webContents.send('window:event', {
+      isFullscreen: true,
+    } as Partial<AppState>);
+  });
+  mainWindow.on('leave-full-screen', () => {
+    mainWindow.webContents.send('window:event', {
+      isFullscreen: false,
+    } as Partial<AppState>);
+  });
+  mainWindow.on('restore', () => {
+    mainWindow.webContents.send('window:event', {
+      isMinimize: mainWindow.isMinimized(),
+      isMaximized: mainWindow.isMaximized(),
+      isFullscreen: mainWindow.isFullScreen(),
+    } as Partial<AppState>);
+  });
+  mainWindow.on('page-title-updated', (e, title) => {
+    mainWindow.webContents.send('window:event', { title } as Partial<AppState>);
   });
 }

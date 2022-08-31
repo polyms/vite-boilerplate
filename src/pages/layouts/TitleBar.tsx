@@ -1,34 +1,35 @@
 import {
-  faArrowsLeftRightToLine,
+  faCompress,
   faDownLeftAndUpRightToCenter,
-  faMinusCircle,
-  faPlusCircle,
+  faExpand,
   faTerminal,
   faUpRightAndDownLeftFromCenter,
   faWindowMinimize,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
-import { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
+import { CSSProperties, useEffect, useState } from 'react';
 import { Container, Nav, Navbar, NavLinkProps } from 'react-bootstrap';
+import { useAppConfig } from '~/stores/app.store';
 
-function useToggle(callback?: null | (() => boolean), initial = false) {
-  const [val, setVal] = useState(initial);
-  const handleToggle = useCallback(
-    () => setVal((oldVal) => (callback ? callback() : !oldVal)),
-    [callback]
-  );
+// function useToggle(callback?: null | (() => boolean), initial = false) {
+//   const [val, setVal] = useState(initial);
+//   const handleToggle = useCallback(
+//     () => setVal((oldVal) => (callback ? callback() : !oldVal)),
+//     [callback]
+//   );
 
-  return [val, handleToggle, setVal] as [
-    value: boolean,
-    onToggle: typeof handleToggle,
-    setValue: typeof setVal
-  ];
-}
+//   return [val, handleToggle, setVal] as [
+//     value: boolean,
+//     onToggle: typeof handleToggle,
+//     setValue: typeof setVal
+//   ];
+// }
 
-function ActionButton({ variant = 'secondary', icon, onClick }: ActionButtonProps) {
+function ActionButton({ icon, ...props }: ActionButtonProps) {
   return (
-    <Nav.Link onClick={onClick} className={`py-0 link-${variant}`}>
+    <Nav.Link {...props} className="py-0">
       <FontAwesomeIcon icon={icon} size="sm" />
     </Nav.Link>
   );
@@ -37,53 +38,62 @@ function ActionButton({ variant = 'secondary', icon, onClick }: ActionButtonProp
 export function TitleBar() {
   const title = 'Polyms';
   const { DEV } = import.meta.env;
-  const [isMaximized, , setMaximize] = useToggle(null, window.electron.isMaximized());
-  // const [menu, setMenu] = useState();
+  const isMaximized = useAppConfig((s) => s.isMaximized);
+  const isFullscreen = useAppConfig((s) => s.isFullscreen);
+  const [isSticky, setSticky] = useState(false);
 
   useEffect(() => {
-    electron.onWindowMaximize(setMaximize);
-    // electron.getMenu().then(console.log);
-    return () => {
-      electron.offWindowMaximize(setMaximize);
-    };
+    document.addEventListener('scroll', () => {
+      const scrollTop = document.scrollingElement?.scrollTop;
+      if (scrollTop === document.body.offsetHeight) setSticky(false);
+      else setSticky(!!document.scrollingElement?.scrollTop);
+    });
   }, []);
 
   return (
-    <Navbar bg="white" className="pb-0 pt-1 app-drag" sticky="top">
+    <Navbar
+      bg="white"
+      className={classNames('py-1 app-drag border-bottom border-3 border-light', {
+        'border-opacity-10': !isSticky,
+      })}
+      sticky="top"
+    >
       <Container fluid className="ps-1 pe-2">
         <img src="./favicon/favicon.png" alt="logo" height={35} />
-        <Navbar.Brand className="mx-auto py-0">{title}</Navbar.Brand>
-        {DEV && (
-          <Nav className="align-items-center border rounded-2 app-no-drag">
-            <ActionButton
-              variant="secondary"
-              icon={faPlusCircle}
-              onClick={window.electron.zoomIn}
-            />
-            <ActionButton
-              icon={faArrowsLeftRightToLine}
-              onClick={window.electron.actualSize}
-            />
-            <ActionButton icon={faMinusCircle} onClick={window.electron.zoomOut} />
-          </Nav>
-        )}
-        <Nav className="align-items-center gap-2 ms-4 app-no-drag">
+        <Navbar.Brand className="mx-auto ps-5 py-0">{title}</Navbar.Brand>
+        <Nav
+          className="align-items-center gap-2 ms-4 app-no-drag"
+          style={
+            {
+              '--bs-nav-link-color': 'var(--bs-gray-800)',
+              '--bs-nav-link-disabled-color': 'var(--bs-gray-300)',
+            } as CSSProperties
+          }
+        >
           {DEV && (
             <ActionButton icon={faTerminal} onClick={window.electron.toggleDevTools} />
           )}
           <ActionButton
-            variant="dark"
             icon={faWindowMinimize}
+            disabled={isFullscreen}
             onClick={window.electron.minimize}
           />
           <ActionButton
-            variant="dark"
             icon={
               isMaximized ? faDownLeftAndUpRightToCenter : faUpRightAndDownLeftFromCenter
             }
+            disabled={isFullscreen}
             onClick={window.electron.maximize}
           />
-          <ActionButton variant="dark" icon={faXmark} onClick={window.electron.close} />
+          <ActionButton
+            icon={isFullscreen ? faCompress : faExpand}
+            onClick={window.electron.fullscreen}
+          />
+          <ActionButton
+            icon={faXmark}
+            onClick={window.electron.close}
+            style={{ '--bs-nav-link-hover-color': 'var(--bs-danger)' } as CSSProperties}
+          />
         </Nav>
       </Container>
     </Navbar>
@@ -92,15 +102,5 @@ export function TitleBar() {
 
 // ======================================================================================
 
-type ActionButtonProps = Pick<NavLinkProps, 'onClick'> &
-  Pick<FontAwesomeIconProps, 'icon'> & {
-    variant?:
-      | 'primary'
-      | 'secondary'
-      | 'success'
-      | 'danger'
-      | 'warning'
-      | 'info'
-      | 'dark'
-      | 'light';
-  };
+type ActionButtonProps = Pick<NavLinkProps, 'onClick' | 'disabled' | 'style'> &
+  Pick<FontAwesomeIconProps, 'icon'>;

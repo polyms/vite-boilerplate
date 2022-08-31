@@ -1,14 +1,15 @@
 /* eslint-disable no-underscore-dangle */
 import '~/styles/globals.scss';
-import { StrictMode, Suspense, useMemo } from 'react';
+import { StrictMode, Suspense, useEffect, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { HashRouter, RouteObject, useRoutes } from 'react-router-dom';
-import { AppPage } from './pages/apps/App.page';
-import { CoveragePage } from './pages/code-coverage/Coverage.page';
 import { ErrorBoundary } from './components/core';
 import { PageLoader } from './components/layouts';
 import { TitleBar } from './pages/layouts';
+
+import AppPage from './pages/app/App.page';
+import { setAppState } from './stores/app.store';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,7 +30,7 @@ function RootApp() {
   const routes = useMemo<RouteObject[]>(
     () => [
       { index: true, element: <AppPage /> },
-      { path: 'coverage', element: <CoveragePage /> },
+      // { path: 'coverage', element: <CoveragePage /> },
     ],
     []
   );
@@ -38,6 +39,11 @@ function RootApp() {
   // instead of <Routes> and <Route> elements. This is really just a style
   // preference for those who prefer to not use JSX for their routes config.
   const element = useRoutes(routes);
+
+  useEffect(() => {
+    setAppState(electron.getWindowState());
+    electron.onWindowStateChange(setAppState);
+  }, []);
 
   return (
     <Suspense fallback={<PageLoader />}>

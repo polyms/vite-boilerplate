@@ -43,7 +43,7 @@ const filters = ['Low', 'Medium', 'High'];
 //   },
 // ];
 
-export function CoveragePage() {
+export default function CoveragePage() {
   const [radioValue, setRadioValue] = useState<GroupType>('Tree');
 
   // const [grouping, setGrouping] = useState<GroupingState>([]);
