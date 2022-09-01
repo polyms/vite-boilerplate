@@ -32,6 +32,7 @@ export default function ipcSetups(mainWindow: BrowserWindow) {
         isMinimize: mainWindow.isMinimized(),
         isMaximized: mainWindow.isMaximized(),
         isFullscreen: mainWindow.isFullScreen(),
+        title: mainWindow.getTitle(),
       } as Partial<AppState>;
       return;
     }

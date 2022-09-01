@@ -36,10 +36,8 @@ function ActionButton({ icon, ...props }: ActionButtonProps) {
 }
 
 export function TitleBar() {
-  const title = 'Polyms';
   const { DEV } = import.meta.env;
-  const isMaximized = useAppConfig((s) => s.isMaximized);
-  const isFullscreen = useAppConfig((s) => s.isFullscreen);
+  const { isMaximized, isFullscreen, title } = useAppConfig((s) => s);
   const [isSticky, setSticky] = useState(false);
 
   useEffect(() => {
