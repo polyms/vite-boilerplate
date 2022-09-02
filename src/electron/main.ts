@@ -4,13 +4,22 @@ import { app, BrowserWindow } from 'electron';
 import { join } from 'node:path';
 import { setupBuilder } from './builder';
 import ipcSetups from './ipcSetups';
+import { version } from '../../package.json';
+
+const appName = 'Polyms Boilerplate';
+
+const iconPath = join(
+  __dirname,
+  app.isPackaged ? '../favicon/favicon.png' : '../../public/favicon/favicon.png'
+);
 
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    // icon: join(__dirname, '../favicon/favicon.png'),
+    icon: iconPath,
     title: 'Polyms',
     // titleBarStyle: 'hidden',
+    titleBarOverlay: true,
     frame: false,
     width: 1024,
     height: 768,
@@ -18,7 +27,6 @@ function createWindow() {
     minHeight: 768,
     resizable: true,
     maximizable: true,
-    // frame: false,
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
     },
@@ -41,6 +49,20 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
+app.setName(appName);
+
+if (process.platform === 'darwin' && !app.isPackaged) {
+  app.dock.setIcon(iconPath);
+}
+
+app.setAboutPanelOptions({
+  iconPath,
+  applicationName: appName,
+  applicationVersion: 'Beta',
+  version: `v${version}`,
+  copyright: 'Copyright © 2011-2021 Polyms.\n All rights reserved.',
+});
+
 app
   .whenReady()
   // eslint-disable-next-line unicorn/prefer-top-level-await

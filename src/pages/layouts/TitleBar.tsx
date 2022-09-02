@@ -37,7 +37,7 @@ function ActionButton({ icon, ...props }: ActionButtonProps) {
 
 export function TitleBar() {
   const { DEV } = import.meta.env;
-  const { isMaximized, isFullscreen, title } = useAppConfig((s) => s);
+  const { isMaximized, isFullscreen } = useAppConfig((s) => s);
   const [isSticky, setSticky] = useState(false);
 
   useEffect(() => {
@@ -57,8 +57,8 @@ export function TitleBar() {
       sticky="top"
     >
       <Container fluid className="ps-1 pe-2">
-        <img src="./favicon/favicon.png" alt="logo" height={35} />
-        <Navbar.Brand className="mx-auto ps-5 py-0">{title}</Navbar.Brand>
+        <img src="./favicon/favicon.png" alt="logo" height={35} className="pe-5 me-5" />
+        <Navbar.Brand className="mx-auto ps-5 py-0">{document.title}</Navbar.Brand>
         <Nav
           className="align-items-center gap-2 ms-4 app-no-drag"
           style={

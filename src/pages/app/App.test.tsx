@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { AppPage } from './App.page';
+import AppPage from './App.page';
 
 describe.concurrent('<AppPage />', () => {
   it('renders without errors', () => {

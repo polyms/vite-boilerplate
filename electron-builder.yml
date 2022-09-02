@@ -1,5 +1,5 @@
 appId: 'app.polyms.boilerplate.vite-electron'
-productName: Vite Electron Boilerplate
+productName: Polyms Boilerplate
 copyright: Copyright © 2022 Polyms
 files:
   - dist
@@ -10,6 +10,7 @@ mac:
   artifactName: ${productName}_${version}.${ext}
   target:
     - dmg
+  icon: public/favicon/favicon.png
 win:
   target:
     - target: nsis

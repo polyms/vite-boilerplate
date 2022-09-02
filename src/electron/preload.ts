@@ -18,6 +18,7 @@ const electronAPI = {
   zoomIn: () => ipcRenderer.send('window:event', 'zoom', 0.5),
   zoomOut: () => ipcRenderer.send('window:event', 'zoom', -0.5),
   actualSize: () => ipcRenderer.send('window:event', 'zoom'),
+  setBadge: (newBadge: string) => ipcRenderer.invoke('app:badge', newBadge),
   versions: process.versions,
 };
 

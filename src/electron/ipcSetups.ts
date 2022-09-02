@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu } from 'electron';
 import { AppState } from '~/stores/app.store';
 
 export default function ipcSetups(mainWindow: BrowserWindow) {
@@ -23,6 +23,16 @@ export default function ipcSetups(mainWindow: BrowserWindow) {
       ) as Menu
   );
 
+  ipcMain.handle(
+    'app:badge',
+    // eslint-disable-next-line @typescript-eslint/require-await
+    async (e, newBadge: string) => {
+      app.dock.setBadge(newBadge);
+
+      return app.dock.getBadge();
+    }
+  );
+
   ipcMain.on('window:event', (e, ...args) => {
     const window = BrowserWindow.fromWebContents(e.sender);
     if (!window) return;
@@ -32,7 +42,6 @@ export default function ipcSetups(mainWindow: BrowserWindow) {
         isMinimize: mainWindow.isMinimized(),
         isMaximized: mainWindow.isMaximized(),
         isFullscreen: mainWindow.isFullScreen(),
-        title: mainWindow.getTitle(),
       } as Partial<AppState>;
       return;
     }
@@ -100,8 +109,5 @@ export default function ipcSetups(mainWindow: BrowserWindow) {
       isMaximized: mainWindow.isMaximized(),
       isFullscreen: mainWindow.isFullScreen(),
     } as Partial<AppState>);
-  });
-  mainWindow.on('page-title-updated', (e, title) => {
-    mainWindow.webContents.send('window:event', { title } as Partial<AppState>);
   });
 }
