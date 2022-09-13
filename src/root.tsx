@@ -2,7 +2,7 @@
 import '~/styles/globals.scss';
 import { StrictMode, Suspense, useEffect, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HashRouter, RouteObject, useRoutes } from 'react-router-dom';
 import { ErrorBoundary } from './components/core';
 import { PageLoader } from './components/layouts';
