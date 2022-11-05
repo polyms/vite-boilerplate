@@ -1,8 +1,7 @@
-@import './bs/bootstrap';
+@import 'bootstrap/scss/mixins/banner';
+@import 'bootstrap/scss/functions';
+@import './bs/variables';
+
+@import 'root';
 @import 'animation';
 @import 'scrollbar';
-
-#root {
-  min-width: 100%;
-  min-height: 100vh;
-}

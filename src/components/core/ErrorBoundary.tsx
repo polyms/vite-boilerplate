@@ -12,7 +12,7 @@ function ErrorRender({ error }: { error: Error }) {
         </Badge>
         {error.message}
       </li>
-      {error.cause && <ErrorRender error={error.cause} />}
+      {error.cause && <ErrorRender error={error.cause as Error} />}
     </>
   );
 }

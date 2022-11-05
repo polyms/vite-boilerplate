@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+import '~/styles/bs/bootstrap.scss';
 import '~/styles/globals.scss';
 import { lazy, StrictMode, Suspense, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';

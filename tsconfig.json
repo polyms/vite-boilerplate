@@ -1,11 +1,5 @@
 {
 	"compilerOptions": {
-		"baseUrl": "./",
-		"paths": {
-			"~/*": [
-				"src/*"
-			]
-		},
 		"target": "ESNext",
 		"useDefineForClassFields": true,
 		"lib": [
@@ -24,11 +18,16 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
-		"jsx": "react-jsx"
+		"jsx": "react-jsx",
+		"baseUrl": "./",
+		"paths": {
+			"~/*": [
+				"src/*"
+			]
+		}
 	},
 	"include": [
 		"src",
-		"src/tests/setup.ts",
 		"jest.config.ts",
 		"vite.config.ts"
 	],
