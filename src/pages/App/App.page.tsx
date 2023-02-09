@@ -1,6 +1,6 @@
 import './App.scss';
 import { Button, ButtonGroup, Card, Container } from 'react-bootstrap';
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 import { useCounter } from '~/stores/counter.store';
 
 export function AppPage() {
