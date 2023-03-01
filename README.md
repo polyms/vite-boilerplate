@@ -6,7 +6,6 @@ A starter for React with Typescript with the fast Vite and all static code testi
 
 - ⚛️⚡️ [React 18](https://reactjs.org/)
 - 🦾 TypeScript, of course
-- 🫀 [Vitest](https://vitest.dev/) - unitary testing made easy
 - 🎨 [Bootstrap](https://getbootstrap.com/) - Build fast, responsive sites
 - 👑 [CSS Modules](https://github.com/css-modules/css-modules)
 - 🗂 [Absolute imports](https://github.com/vitejs/vite/issues/88#issuecomment-762415200)

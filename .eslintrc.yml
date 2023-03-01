@@ -2,7 +2,6 @@ root: true
 plugins:
   - '@typescript-eslint'
   - promise
-  - unicorn
 extends:
   - airbnb
   - airbnb-typescript
@@ -10,7 +9,6 @@ extends:
   - plugin:@typescript-eslint/recommended
   - plugin:@typescript-eslint/recommended-requiring-type-checking
   - plugin:promise/recommended
-  - plugin:unicorn/recommended
   - prettier
 rules:
   import/prefer-default-export: off
@@ -23,17 +21,6 @@ rules:
   react/require-default-props: off
   react/jsx-props-no-spreading: off
   promise/catch-or-return: off
-  unicorn/prevent-abbreviations: off
-  unicorn/no-array-for-each: off
-  unicorn/prefer-module: off
-  unicorn/no-null: off
-  unicorn/filename-case:
-    - error
-    - cases:
-        camelCase: true
-        pascalCase: true
-      ignore:
-        - vite-env.d.ts
   '@typescript-eslint/no-floating-promises': off
   '@typescript-eslint/explicit-function-return-type': off
   '@typescript-eslint/no-use-before-define':
@@ -48,18 +35,6 @@ parserOptions:
   tsconfigRootDir: ./
   project:
     - ./tsconfig.json
-
-overrides:
-  - files:
-      - '*.js'
-    rules:
-      '@typescript-eslint/no-var-requires': off
-      unicorn/prefer-module: off
-  - files:
-      - '**/__tests__/**/*.[jt]s?(x)'
-      - '**/?(*.)+(spec|test).[jt]s?(x)'
-    extends:
-      - plugin:testing-library/react
 
 env:
   browser: true

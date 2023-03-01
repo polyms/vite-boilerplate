@@ -37,8 +37,8 @@ function createWindow() {
   setupBuilder(mainWindow);
 
   // and load the index.html of the app.
-  if (!app.isPackaged) {
-    mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL as string);
+  if (process.env.VITE_DEV_SERVER_URL) {
+    mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL);
   } else {
     mainWindow.loadFile(join(__dirname, '../index.html'));
   }
@@ -63,18 +63,15 @@ app.setAboutPanelOptions({
   copyright: 'Copyright © 2011-2021 Polyms.\n All rights reserved.',
 });
 
-app
-  .whenReady()
-  // eslint-disable-next-line unicorn/prefer-top-level-await
-  .then(() => {
-    createWindow();
+app.whenReady().then(() => {
+  createWindow();
 
-    return app.on('activate', () => {
-      // On macOS it's common to re-create a window in the app when the
-      // dock icon is clicked and there are no other windows open.
-      if (BrowserWindow.getAllWindows().length === 0) createWindow();
-    });
+  return app.on('activate', () => {
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
