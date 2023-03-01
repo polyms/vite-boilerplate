@@ -1,6 +1,6 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
-import { contextBridge, ipcRenderer, Menu } from 'electron';
+import { contextBridge, ipcRenderer, IpcRendererEvent, Menu } from 'electron';
 import type { AppState, setAppState } from '~/stores/app.store';
 
 const electronAPI = {
@@ -20,8 +20,30 @@ const electronAPI = {
   actualSize: () => ipcRenderer.send('window:event', 'zoom'),
   setBadge: (newBadge: string) => ipcRenderer.invoke('app:badge', newBadge),
   versions: process.versions,
+  ipcRenderer: {
+    sendMessage(channel: Channels, args: unknown[]) {
+      ipcRenderer.send(channel, args);
+    },
+    on(channel: Channels, func: (...args: unknown[]) => void) {
+      const subscription = (_event: IpcRendererEvent, ...args: unknown[]) =>
+        func(...args);
+      ipcRenderer.on(channel, subscription);
+
+      return () => {
+        ipcRenderer.removeListener(channel, subscription);
+      };
+    },
+    once(channel: Channels, func: (...args: unknown[]) => void) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      ipcRenderer.once(channel, (_event, ...args) => func(...args));
+    },
+  },
 };
 
 contextBridge.exposeInMainWorld('electron', electronAPI);
 
+// ======================================================================================
+
 export type ElectronAPI = typeof electronAPI;
+
+export type Channels = 'ipc-demo';

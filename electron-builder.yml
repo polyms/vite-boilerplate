@@ -5,7 +5,7 @@ files:
   - dist
 asar: true
 directories:
-  output: build/Release/${version}
+  output: dist/Release/${version}
 mac:
   artifactName: ${productName}_${version}.${ext}
   target:

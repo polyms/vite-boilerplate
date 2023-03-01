@@ -48,7 +48,9 @@ function RootApp() {
   return (
     <Suspense fallback={<PageLoader />}>
       <TitleBar />
-      {element}
+      <main id="main" className="flex-grow-1 d-flex overflow-auto">
+        {element}
+      </main>
     </Suspense>
   );
 }

@@ -1,5 +1,3 @@
-/// <reference types="vitest" />
-
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
@@ -34,31 +32,9 @@ export default defineConfig({
     //     generateScopedName: '[local]-[hash:base64:5]',
     //   },
   },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    // setupFiles: './src/tests/setup.ts',
-    // you might want to disable it, if you don't have tests that rely on CSS
-    // since parsing CSS is slow
-    css: false,
-    clearMocks: true,
-    coverage: {
-      enabled: true,
-      lines: 70,
-      functions: 70,
-      branches: 70,
-      statements: 70,
-      include: ['src'],
-      exclude,
-      reporter: ['json', 'json-summary', 'clover', 'html-spa'],
-      reportsDirectory: './public/coverage',
-    },
-    silent: true,
-  },
   resolve: {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     alias: [{ find: '~', replacement: path.resolve(__dirname, 'src') }],
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.scss'],
   },
   plugins: [
     react(),
@@ -80,18 +56,12 @@ export default defineConfig({
       ],
     }),
     electron({
-      main: {
-        entry: 'src/electron/main.ts',
-      },
-      preload: {
-        input: {
-          // Must be use absolute path, this is the restrict of Rollup
-          preload: path.join(__dirname, 'src/electron/preload.ts'),
+      entry: ['src/electron/main.ts', 'src/electron/preload.ts'],
+      vite: {
+        build: {
+          outDir: 'dist/electron',
         },
       },
-      // Enables use of Node.js API in the Renderer-process
-      // https://github.com/electron-vite/vite-plugin-electron/tree/main/packages/electron-renderer#electron-renderervite-serve
-      renderer: {},
     }),
   ],
 });

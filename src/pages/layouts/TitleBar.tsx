@@ -41,18 +41,21 @@ export function TitleBar() {
   const [isSticky, setSticky] = useState(false);
 
   useEffect(() => {
-    document.addEventListener('scroll', () => {
-      const scrollTop = document.scrollingElement?.scrollTop;
-      if (scrollTop === document.body.offsetHeight) setSticky(false);
-      else setSticky(!!document.scrollingElement?.scrollTop);
-    });
+    const elem = document.getElementById('main');
+    const onScroll = () => setSticky(!!elem?.scrollTop);
+
+    elem?.addEventListener('scroll', onScroll);
+
+    return () => {
+      elem?.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
   return (
     <Navbar
       bg="white"
-      className={classNames('py-1 app-drag border-bottom border-3 border-light', {
-        'border-opacity-10': !isSticky,
+      className={classNames('pb-0 pt-0 app-drag border-3 border-light', {
+        'border-bottom': isSticky,
       })}
       sticky="top"
     >
