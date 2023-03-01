@@ -15,21 +15,10 @@ extends:
 rules:
   import/prefer-default-export: off
   import/extensions: off
-  no-restricted-exports: off
-  react/react-in-jsx-scope: off
-  unicorn/prevent-abbreviations: off
-  unicorn/no-array-for-each: off
   import/no-extraneous-dependencies: off
   no-use-before-define: off
-  unicorn/prefer-module: off
-  unicorn/no-null: off
-  unicorn/filename-case:
-    - error
-    - cases:
-        camelCase: true
-        pascalCase: true
-      ignore:
-        - vite-env.d.ts
+  no-restricted-exports: off
+  react/react-in-jsx-scope: off
   '@typescript-eslint/explicit-function-return-type': off
   '@typescript-eslint/no-use-before-define':
     - error
@@ -43,18 +32,6 @@ parserOptions:
   tsconfigRootDir: ./
   project:
     - ./tsconfig.json
-
-overrides:
-  - files:
-      - '*.js'
-    rules:
-      '@typescript-eslint/no-var-requires': off
-      unicorn/prefer-module: off
-  - files:
-      - '**/__tests__/**/*.[jt]s?(x)'
-      - '**/?(*.)+(spec|test).[jt]s?(x)'
-    extends:
-      - plugin:testing-library/react
 
 env:
   browser: true
