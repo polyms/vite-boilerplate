@@ -2,3 +2,10 @@
 /dist
 /coverage
 /.nx/cache
+
+.DS_Store
+.yarn
+package.json
+_variables.scss
+bootstrap.scss
+README.md
