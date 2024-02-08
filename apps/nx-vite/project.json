@@ -1,0 +1,8 @@
+{
+  "name": "nx-vite",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/nx-vite/src",
+  "projectType": "application",
+  "targets": {},
+  "tags": []
+}
