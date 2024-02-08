@@ -1,8 +1,4 @@
-import {
-  createRootRoute,
-  Outlet,
-  ScrollRestoration,
-} from '@tanstack/react-router';
+import { createRootRoute, Outlet, ScrollRestoration } from '@tanstack/react-router';
 import { lazy, Suspense } from 'react';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 

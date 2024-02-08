@@ -1,0 +1,12 @@
+printWidth: 90
+singleQuote: true
+jsxSingleQuote: false
+useTabs: false
+overrides:
+  - files:
+      - .*rc
+      - '*.json'
+      - .*.json
+    options:
+      parser: json
+      useTabs: true
