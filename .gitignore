@@ -48,3 +48,7 @@ Thumbs.db
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# ENV
+.env.local
+.env.*.local
