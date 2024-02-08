@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  main:
+    image: nginx:alpine
+    ports:
+      - 5000:80
+    volumes:
+      - ./dist/apps/main:/usr/share/nginx/html:ro
+    command: [nginx-debug, '-g', 'daemon off;']
