@@ -1,9 +1,35 @@
-import './home.module.scss';
-import { Button, ButtonGroup, Card, Container } from 'react-bootstrap';
-import { useCounter } from '../../stores/counter.store';
+import './home.module.scss'
+
+import { faLanguage } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { PropsWithChildren } from 'react'
+import { Button, ButtonGroup, Card, Container } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
+
+import { useCounter } from '../../stores/counter.store'
+
+const ChangeLangButton = ({ lng, children }: ChangeLangButtonProps) => {
+  const { i18n } = useTranslation()
+
+  return (
+    <Button
+      variant="primary"
+      className="px-4"
+      active={i18n.language === lng}
+      onClick={() => {
+        i18n.reloadResources(lng, undefined, () => {
+          i18n.changeLanguage(lng)
+        })
+      }}
+    >
+      {children}
+    </Button>
+  )
+}
 
 export function HomePage() {
-  const { count, dec, inc } = useCounter((s) => s);
+  const { count, dec, inc } = useCounter((s) => s)
+  const { t } = useTranslation()
 
   return (
     <Container className="d-flex flex-column text-center my-auto pb-5">
@@ -30,19 +56,33 @@ export function HomePage() {
         <Card.Body>
           <ButtonGroup className="w-100">
             <Button variant="primary" onClick={inc} data-testid="increment">
-              increment
+              {t('demo.increment')}
             </Button>
 
             <Button variant="outline-danger" onClick={dec} data-testid="reduce">
-              reduce
+              {t('demo.reduce')}
             </Button>
           </ButtonGroup>
         </Card.Body>
         <Card.Footer>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          Edit <code>home.page.tsx</code> and save to test HMR
         </Card.Footer>
       </Card>
       <p className="text-muted">Click on the Vite and React logos to learn more</p>
+      <hr />
+      <div className="d-flex align-item-center justify-content-center">
+        <FontAwesomeIcon icon={faLanguage} size="2x" className="me-3" />
+        <ButtonGroup aria-label="Language">
+          <ChangeLangButton lng="en">EN</ChangeLangButton>
+          <ChangeLangButton lng="vi">VI</ChangeLangButton>
+        </ButtonGroup>
+      </div>
     </Container>
-  );
+  )
 }
+
+// ================================================================================================
+
+type ChangeLangButtonProps = PropsWithChildren<{
+  lng: string
+}>

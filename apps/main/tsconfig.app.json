@@ -6,9 +6,11 @@
 			"node",
 			"@nx/react/typings/cssmodule.d.ts",
 			"@nx/react/typings/image.d.ts",
-			"vite/client"
+			"vite/client",
+			"vitest"
 		]
 	},
+	"files": ["../../types.d.ts"],
 	"exclude": [
 		"src/**/*.spec.ts",
 		"src/**/*.test.ts",
@@ -24,6 +26,7 @@
 		"src/**/*.jsx",
 		"src/**/*.ts",
 		"src/**/*.tsx",
+		"src/**/*.yml",
 		"src/**/*.scss"
 	]
 }

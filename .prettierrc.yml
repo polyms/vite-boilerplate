@@ -2,6 +2,19 @@ printWidth: 90
 singleQuote: true
 jsxSingleQuote: false
 useTabs: false
+semi: false
+plugins:
+  - '@trivago/prettier-plugin-sort-imports'
+
+importOrderSeparation: true
+importOrderSortSpecifiers: true
+importOrder:
+  - ^(@module-federation|~\w+.*\.scss$|~/i18n$)
+  - ^.*(?!module)\.scss$
+  - <THIRD_PARTY_MODULES>
+  - ^~.*$
+  - ^\.
+
 overrides:
   - files:
       - .*rc
@@ -10,3 +23,4 @@ overrides:
     options:
       parser: json
       useTabs: true
+      tabWidth: 4

@@ -1,14 +1,14 @@
-import '~styles/bs/bootstrap.scss';
-import '~styles/globals.scss';
+import '~styles/bs/bootstrap.scss'
+import '~styles/globals.scss'
 
-import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom/client';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { StrictMode } from 'react'
+import * as ReactDOM from 'react-dom/client'
 
-import { RouterProvider, createRouter } from '@tanstack/react-router';
-
+import './locales/i18n.config'
 // Import the generated route tree
-import { routeTree } from './pages.gen';
+import { routeTree } from './pages.gen'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,25 +20,25 @@ const queryClient = new QueryClient({
       refetchInterval: false,
     },
   },
-});
+})
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({ routeTree })
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
     </QueryClientProvider>
   </StrictMode>,
-);
+)
 
 // ================================================================================================
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
   interface Register {
-    router: typeof router;
+    router: typeof router
   }
 }

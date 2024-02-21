@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
+import yaml from '@rollup/plugin-yaml';
 
 export default defineConfig({
   root: __dirname,
@@ -25,6 +26,7 @@ export default defineConfig({
       routesDirectory: './src/pages',
       generatedRouteTree: './src/pages.gen.ts',
     }),
+    yaml(),
   ],
 
   // Uncomment this if you are using workers.
